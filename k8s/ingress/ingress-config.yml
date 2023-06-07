@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-chat
+spec:
+  rules:
+    - http:
+        paths:
+          - pathType: Prefix
+            path: "/auth"
+            backend:
+              service:
+                name: chat-jwt
+                port:
+                  number: 8090
+          - pathType: Prefix
+            path: "/user"
+            backend:
+              service:
+                name: chat-jwt
+                port:
+                  number: 8090
+          - pathType: Prefix
+            path: "/room"
+            backend:
+              service:
+                name: chat
+                port:
+                  number: 8080
+          - pathType: Prefix
+            path: "/chat"
+            backend:
+              service:
+                name: chat
+                port:
+                  number: 8080

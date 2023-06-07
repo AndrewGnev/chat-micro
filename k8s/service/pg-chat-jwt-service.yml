@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: postgres-jwt
+spec:
+  type: ClusterIP
+  selector:
+    app: postgres-jwt
+  ports:
+    - protocol: TCP
+      port: 5432

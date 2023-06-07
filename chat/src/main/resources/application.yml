@@ -1,0 +1,51 @@
+quarkus:
+
+  datasource:
+    db-kind: ${DB_KIND:postgresql}
+    username: ${DB_USERNAME:user}
+    password: ${DB_PASSWORD:123}
+    jdbc:
+#      url: ${DB_URL:jdbc:postgresql://host.docker.internal:5432/chat}
+      url: ${DB_URL}
+
+  native:
+    resources:
+      includes: ${PATH_TO_PUBLIC_KEY:publicKey.pem}
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog.yml
+    migrate-at-start: true
+
+  redis:
+    hosts: ${REDIS_HOST:redis://localhost/}
+
+
+smallrye:
+  jwt:
+    new-token:
+      lifespan: ${JWT_LIFESPAN:3600}
+    sign:
+      key:
+        location: ${PATH_TO_PRIVATE_KEY:privateKey.pem}
+
+mp:
+  jwt:
+    verify:
+      publickey:
+        location: ${PATH_TO_PUBLIC_KEY:publicKey.pem}
+
+app:
+  name: ${INSTANCE_NAME:instance-0}
+  redis:
+    instance:
+      key-prefix: instance-
+    session:
+      key-prefix: session-
+    chat-messages:
+      channel-name: chat-messages-
+
+#"%dev":
+#  quarkus:
+#    datasource:
+#      jdbc:
+#        url: ${DB_URL_DEV:jdbc:postgresql://localhost:5432/chat}

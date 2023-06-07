@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: redis-chat
+spec:
+  type: ClusterIP
+  selector:
+    app: redis-chat
+  ports:
+    - protocol: TCP
+      port: 6379

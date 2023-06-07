@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chat
+  labels:
+    app: chat
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: chat
+  template:
+    metadata:
+      labels:
+        app: chat
+    spec:
+      containers:
+      - name: chat
+        image: pussydestroyer229/chat:latest
+        ports:
+        - containerPort: 8080
+        env:
+          - name: DB_URL
+            value: jdbc:postgresql://postgres-chat:5432/chat
+          - name: REDIS_HOST
+            value: redis://redis-chat
+          - name: INSTANCE_NAME
+            value: instance-0

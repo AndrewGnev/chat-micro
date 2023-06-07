@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chat-jwt
+  labels:
+    app: chat-jwt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chat-jwt
+  template:
+    metadata:
+      labels:
+        app: chat-jwt
+    spec:
+      containers:
+      - name: chat-jwt
+        image: pussydestroyer229/chat-jwt:latest
+        ports:
+        - containerPort: 8090
+          hostPort: 8090
+          protocol: TCP
+        env:
+          - name: DB_URL
+            value: jdbc:postgresql://postgres-jwt/chat-auth

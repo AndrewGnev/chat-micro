@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-jwt
+  labels:
+    app: postgres-jwt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-jwt
+  template:
+    metadata:
+      labels:
+        app: postgres-jwt
+    spec:
+      containers:
+        - name: postgres-jwt
+          image: postgres:15.1
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: chat-auth
+            - name: POSTGRES_USER
+              value: user
+            - name: POSTGRES_PASSWORD
+              value: "123"

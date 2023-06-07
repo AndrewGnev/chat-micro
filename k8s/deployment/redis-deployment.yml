@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-chat
+  labels:
+    app: redis-chat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-chat
+  template:
+    metadata:
+      labels:
+        app: redis-chat
+    spec:
+      containers:
+        - name: redis-chat
+          image: redis:7.0.5
+          ports:
+            - containerPort: 6379

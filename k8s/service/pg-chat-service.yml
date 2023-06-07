@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: postgres-chat
+spec:
+  type: ClusterIP
+  selector:
+    app: postgres-chat
+  ports:
+    - protocol: TCP
+      port: 5432

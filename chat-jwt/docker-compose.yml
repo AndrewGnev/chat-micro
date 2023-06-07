@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  postgres-jwt:
+    image: postgres:15.1
+    container_name: pg-auth
+    environment:
+      - POSTGRES_DB=chat-auth
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=123
+    ports:
+      - "2345:5432"
+    restart: always
+
+  chat_jwt:
+    container_name: 'chat_jwt'
+    depends_on:
+      - postgres-jwt
+    environment:
+      - DB_URL=jdbc:postgresql://postgres-jwt:5432/chat-auth
+    build:
+      context: .
+      dockerfile: Dockerfile.jvm
+    ports:
+      - "8090:8090"

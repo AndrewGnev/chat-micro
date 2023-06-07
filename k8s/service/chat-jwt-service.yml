@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: chat-jwt
+spec:
+  type: NodePort
+  selector:
+    app: chat-jwt
+  ports:
+    - port: 8090
+      nodePort: 30002

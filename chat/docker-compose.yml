@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+
+  postgres-chat:
+    image: postgres:15.1
+    container_name: pg
+    environment:
+      - POSTGRES_DB=chat
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=123
+    ports:
+      - "6789:5432"
+    restart: always
+
+  redis:
+    image: redis:7.0.5
+    restart: on-failure
+    ports:
+      - "6379:6379"
+
+  chat:
+    container_name: 'chat'
+    depends_on:
+      - postgres-chat
+      - redis
+    environment:
+      - DB_URL=jdbc:postgresql://postgres-chat:5432/chat
+      - INSTANCE_NAME=instance-0
+      - REDIS_HOST=redis://redis/
+    build:
+      context: .
+      dockerfile: Dockerfile.jvm
+    ports:
+      - "8000:8080"
