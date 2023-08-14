@@ -4,9 +4,8 @@ import com.quarkus.chat.redis.api.ChatMessage;
 import io.quarkus.redis.datasource.RedisDataSource;
 import io.quarkus.redis.datasource.pubsub.PubSubCommands;
 import io.quarkus.redis.datasource.value.ValueCommands;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-
-import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class RedisPublisher {
@@ -22,13 +21,14 @@ public class RedisPublisher {
         pub = ds.pubsub(ChatMessage.class);
     }
 
-    public void publish(String sessionId, long roomId, String content) {
+    public void publish(String sessionId, long roomId, String content, String sender) {
         pub.publish(
                 channelName + roomId + sessionId,
                 ChatMessage.builder()
                         .session(sessionId)
                         .roomId(roomId)
                         .content(content)
+                        .sender(sender)
                         .build()
         );
     }

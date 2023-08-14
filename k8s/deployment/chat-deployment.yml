@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: chat
-        image: pussydestroyer229/chat:latest
+        image: andrewgnev/chat:latest
         ports:
         - containerPort: 8080
         env:

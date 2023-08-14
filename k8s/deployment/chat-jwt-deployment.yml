@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: chat-jwt
-        image: pussydestroyer229/chat-jwt:latest
+        image: andrewgnev/chat-jwt:latest
         ports:
         - containerPort: 8090
           hostPort: 8090

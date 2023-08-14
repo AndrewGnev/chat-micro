@@ -16,6 +16,7 @@ create table if not exists message
     id bigint not null primary key default nextval('message_id_seq'),
     content text,
     sender varchar(255),
+    createdAt timestamp,
     room_id bigint not null references room(id)
 );
 

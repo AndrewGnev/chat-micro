@@ -8,6 +8,12 @@ quarkus:
 #      url: ${DB_URL:jdbc:postgresql://host.docker.internal:5432/chat}
       url: ${DB_URL}
 
+  cache:
+    redis:
+      messages:
+        key-type: java.lang.Long
+        value-type: java.lang.List
+
   native:
     resources:
       includes: ${PATH_TO_PUBLIC_KEY:publicKey.pem}
@@ -35,12 +41,9 @@ mp:
         location: ${PATH_TO_PUBLIC_KEY:publicKey.pem}
 
 app:
-  name: ${INSTANCE_NAME:instance-0}
   redis:
-    instance:
-      key-prefix: instance-
-    session:
-      key-prefix: session-
+    room:
+      key-prefix: room-
     chat-messages:
       channel-name: chat-messages-
 

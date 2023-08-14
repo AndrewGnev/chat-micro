@@ -10,7 +10,7 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=123
     ports:
-      - "6789:5432"
+      - "5432:5432"
     restart: always
 
   redis:
@@ -32,4 +32,4 @@ services:
       context: .
       dockerfile: Dockerfile.jvm
     ports:
-      - "8000:8080"
+      - "8888:8080"

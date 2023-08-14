@@ -9,15 +9,17 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=123
     ports:
-      - "2345:5432"
+      - "5432:5432"
     restart: always
 
-  chat_jwt:
-    container_name: 'chat_jwt'
+  chat-jwt:
+    container_name: chat-jwt
     depends_on:
       - postgres-jwt
     environment:
       - DB_URL=jdbc:postgresql://postgres-jwt:5432/chat-auth
+      - DB_USERNAME=user
+      - DB_PASSWORD=123
     build:
       context: .
       dockerfile: Dockerfile.jvm

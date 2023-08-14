@@ -5,11 +5,11 @@ import com.quarkus.chat.ws.ChatSocket;
 import io.quarkus.redis.datasource.RedisDataSource;
 import io.quarkus.redis.datasource.pubsub.PubSubCommands;
 import io.quarkus.runtime.Startup;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.enterprise.context.ApplicationScoped;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -36,7 +36,7 @@ public class RedisSubscriber implements Consumer<ChatMessage> {
 
     @Override
     public void accept(ChatMessage message) {
-        CompletableFuture.runAsync(() -> chatSocket.broadcastForeignMessage(message));
+        CompletableFuture.runAsync(() -> chatSocket.broadcastMessage(message));
     }
 
     @PreDestroy

@@ -9,4 +9,5 @@ public class ChatMessage {
     String session;
     long roomId;
     String content;
+    String sender;
 }

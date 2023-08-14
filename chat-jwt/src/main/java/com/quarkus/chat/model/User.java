@@ -23,10 +23,11 @@ import java.util.Set;
 @Table(name = "app_user")
 @Getter
 @Setter
-@Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder(toBuilder = true)
 public class User extends PanacheEntityBase {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "app_user_id_seq_gen")
@@ -35,16 +36,10 @@ public class User extends PanacheEntityBase {
 
     @Column(name = "username", unique = true)
     private String username;
+
     private String password;
+
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    public static void persistUser(User user) {
-        persist(user);
-    }
-
-    public static User findByUsername(String username) {
-        return (User) find("username", username).firstResultOptional()
-                .orElseThrow(() -> new EntityNotFoundException("User with username " + username + " not found"));
-    }
 }
